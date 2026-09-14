@@ -73,3 +73,50 @@ The exact version number may vary depending on the latest Wazuh release availabl
 **Screenshot 1: Showing the official Wazuh OVA download page.**
 
 **Reference:** [Official Wazuh Virtual Machine Documentation](https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html)
+
+## Step 2: Import the Wazuh OVA into VirtualBox
+
+After downloading the official Wazuh OVA, the next step is to import the appliance into **Oracle VM VirtualBox**. This creates the virtual machine that will be used as the **Wazuh Server**.
+
+### 2.1 Open VirtualBox
+
+Open **Oracle VM VirtualBox** on the host computer.
+
+### 2.2 Start the Import
+
+1. Open **Oracle VM VirtualBox**.
+2. Click **File** from the top menu.
+3. Select **Import Appliance**.
+4. The **Import Appliance** window will open.
+5. Click the **File** field and browse to the location where the Wazuh OVA was downloaded.
+6. Select the downloaded **`.ova`** file.
+7. Click **Next** to continue.
+
+### 2.3 Review the Appliance Settings
+
+VirtualBox will read the OVA file and display the virtual machine configuration contained in the appliance.
+
+The Wazuh appliance may display settings similar to:
+
+* **CPU:** 4 cores
+* **RAM:** 8 GB
+* **Disk:** Approximately 50 GB
+* **Network Adapter:** Configured according to the appliance
+
+The exact settings may vary depending on the Wazuh OVA version.
+
+Review the displayed configuration and click **Finish** to begin importing the appliance.
+
+The import process may take several minutes depending on the performance of the host computer.
+
+### 2.4 Verify the Virtual Machine
+
+Once the import process is completed, return to the **VirtualBox Manager**.
+
+A new virtual machine named **Wazuh** should now be visible in the list of available virtual machines.
+
+![Wazuh VM Added to VirtualBox](images/2-wazuh-vm-imported.png)
+
+**Screenshot 2:** Showing the **Wazuh virtual machine successfully added to VirtualBox**.
+
+
