@@ -99,7 +99,7 @@ VirtualBox will read the OVA file and display the virtual machine configuration 
 The Wazuh appliance may display settings similar to:
 
 * **CPU:** 4 cores
-* **RAM:** 8 GB
+* **RAM:** 4 GB
 * **Disk:** Approximately 50 GB
 * **Network Adapter:** Configured according to the appliance
 
