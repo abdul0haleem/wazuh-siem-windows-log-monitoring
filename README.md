@@ -221,7 +221,7 @@ inet 192.168.1.100/24
 In this example, the Wazuh Server IP address is:
 
 ```text
-192.168.1.100
+192.168.1.118
 ```
 
 The IP address will be different depending on the local network.
