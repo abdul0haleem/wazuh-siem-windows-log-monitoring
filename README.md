@@ -68,8 +68,8 @@ wazuh-4.x.x.ova
 
 The exact version number may vary depending on the latest Wazuh release available at the time of deployment.
 
-**Screenshot 1: Showing the official Wazuh OVA download page.**
-
 ![Wazuh OVA Download Page](images/1-wazuh-ova-download.png)
+
+**Screenshot 1: Showing the official Wazuh OVA download page.**
 
 **Reference:** [Official Wazuh Virtual Machine Documentation](https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html)
