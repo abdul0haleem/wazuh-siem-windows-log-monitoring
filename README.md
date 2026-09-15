@@ -214,6 +214,20 @@ The Windows 11 network connection will be tested later to verify that the Window
               Bridged                     NAT
 ```
 
+### 3.5 Required Wazuh Ports
+
+[#35-required-wazuh-ports](#35-required-wazuh-ports)
+
+For the Wazuh Agent to properly enroll with and communicate with the Wazuh Server, the following ports must be reachable between the Windows 11 VM and the Wazuh Server:
+
+| Port      | Protocol | Purpose                                              |
+| --------- | -------- | ----------------------------------------------------- |
+| **1514**  | TCP/UDP  | Agent–Manager communication (event/log forwarding)    |
+| **1515**  | TCP      | Agent enrollment (initial registration with the manager) |
+| **55000** | TCP      | Wazuh API (used by the dashboard and for management)  |
+
+If the Wazuh Agent shows a **Disconnected** or **Never Connected** status in the dashboard, or if events are not appearing under Threat Hunting, verify that these ports are not being blocked by a firewall on the host, the Wazuh Server VM, or the Windows 11 VM.
+
 ## Step 4: Start the Wazuh Server and Find Its IP Address
 
 After configuring the Wazuh VM with **Bridged Adapter**, start the virtual machine and identify the IP address assigned to the Wazuh Server.
