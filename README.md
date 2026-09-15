@@ -215,7 +215,7 @@ Find the **`inet`** address listed under the active network interface.
 In this example, the Wazuh Server IP address is:
 
 ```text
-10.165.214.220
+192.168.43.155
 ```
 
 The IP address will be different depending on the local network.
