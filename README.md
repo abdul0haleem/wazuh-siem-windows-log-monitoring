@@ -216,8 +216,6 @@ The Windows 11 network connection will be tested later to verify that the Window
 
 ### 3.5 Required Wazuh Ports
 
-[#35-required-wazuh-ports](#35-required-wazuh-ports)
-
 For the Wazuh Agent to properly enroll with and communicate with the Wazuh Server, the following ports must be reachable between the Windows 11 VM and the Wazuh Server:
 
 | Port      | Protocol | Purpose                                              |
