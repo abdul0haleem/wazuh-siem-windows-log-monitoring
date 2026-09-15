@@ -212,16 +212,10 @@ ip addr
 
 Find the **`inet`** address listed under the active network interface.
 
-For example:
-
-```text
-inet 192.168.1.100/24
-```
-
 In this example, the Wazuh Server IP address is:
 
 ```text
-192.168.43.220
+10.165.214.220
 ```
 
 The IP address will be different depending on the local network.
