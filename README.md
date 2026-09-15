@@ -328,8 +328,6 @@ The **Wazuh login page** should now appear.
 
 Enter the Wazuh login credentials provided with the OVA installation.
 
-> **Security Note:** Do not publish the actual password in a public GitHub repository. Mask or blur the password if it is visible in the screenshot.
-
 ![Wazuh Login Credentials](images/10-wazuh-login-credentials.png)
 
 **Screenshot 10:** Showing the Wazuh login credentials.
