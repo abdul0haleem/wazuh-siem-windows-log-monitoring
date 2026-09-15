@@ -338,9 +338,9 @@ After successful authentication, the **Wazuh Dashboard** will be displayed.
 
 After accessing the Wazuh Dashboard from Kali Linux, the next step is to verify that the main Wazuh services are running correctly before connecting the Windows 11 endpoint.
 
-**Screenshot 11:** Showing the **Wazuh Dashboard**.
-
 ![Wazuh Dashboard](images/11-wazuh-dashboard.png)
+
+**Screenshot 11:** Showing the **Wazuh Dashboard**.
 
 ### 7.1 Open the Wazuh Server Terminal
 
@@ -409,3 +409,207 @@ Press **Q** to exit the status screen.
 
 At this stage, the **Wazuh Manager, Wazuh Indexer, and Wazuh Dashboard** services should all be running correctly.
 
+### Service Verification Summary
+
+The following Wazuh services were verified as running successfully:
+
+| Wazuh Service       | Status             |
+| ------------------- | ------------------ |
+| **Wazuh Manager**   | `active (running)` |
+| **Wazuh Indexer**   | `active (running)` |
+| **Wazuh Dashboard** | `active (running)` |
+
+Since the **Wazuh Dashboard** was successfully accessed from Kali Linux, the Dashboard service and network connectivity between Kali Linux and the Wazuh Server have also been confirmed.
+
+At this stage, the Wazuh Server is ready for the **Windows 11 endpoint integration**.
+
+## Step 8: Check Windows 11 → Wazuh Server Connectivity
+
+Before installing the Wazuh Agent, verify that the **Windows 11 VM** can communicate with the **Wazuh Server**.
+
+The Windows 11 VM is running on **VMware Workstation using NAT**, while the Wazuh Server is connected through a **VirtualBox Bridged Adapter**.
+
+### 8.1 Start Windows 11
+
+1. Open **VMware Workstation**.
+2. Start the **Windows 11** virtual machine.
+3. Log in to Windows 11.
+4. Make sure the VM has an active network connection.
+
+**Screenshot 15:** Showing the Windows 11 VM running in VMware Workstation.
+
+![Windows 11 VM Running](images/15-windows-11-vm-running.png)
+
+### 8.2 Find the Windows 11 IP Address
+
+1. Open **Command Prompt** in Windows 11.
+2. Run:
+
+```cmd id="6m5w7b"
+ipconfig
+```
+
+3. Find the **IPv4 Address** under the active network adapter.
+
+The IPv4 address may look similar to:
+
+```text id="8w8qtd"
+IPv4 Address. . . . . . : 192.168.xxx.xxx
+```
+
+**Screenshot 16:** Showing the Windows 11 IPv4 address.
+
+![Windows 11 IP Address](images/16-windows-11-ip.png)
+
+### 8.3 Test Connectivity to the Wazuh Server
+
+In the same Command Prompt, run:
+
+```cmd id="6x8l5a"
+ping 192.168.43.155
+```
+
+If Windows 11 can reach the Wazuh Server, you should receive replies similar to:
+
+```text id="1o5vax"
+Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
+Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
+Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
+Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
+```
+
+**Screenshot 17:** Showing successful ping responses from the Wazuh Server.
+
+![Windows 11 Ping to Wazuh Server](images/17-windows-ping-wazuh.png)
+
+Successful ping responses confirm that **Windows 11 can communicate with the Wazuh Server** over the network.
+
+### Network Connectivity
+
+```text id="f2q0az"
+Windows 11 VM
+     │
+     │  Ping
+     ▼
+Wazuh Server
+192.168.43.155
+```
+
+## Step 9: Download and Install the Wazuh Agent for Windows 11
+
+After confirming connectivity between Windows 11 and the Wazuh Server, the next step is to download and install the **Wazuh Agent** on the Windows 11 VM.
+
+### 9.1 Open the Wazuh Dashboard
+
+From **Kali Linux**, open the Wazuh Dashboard:
+
+```text
+https://192.168.43.155
+```
+
+Log in to the Wazuh Dashboard.
+
+### 9.2 Open Agent Deployment
+
+In the Wazuh Dashboard, navigate to:
+
+**Agents Management → Summary**
+
+![Wazuh Agents Management](images/18-wazuh-agents-management.png)
+
+**Screenshot 18:** Showing the **Agents Management → Summary** page.
+
+Click **Deploy new agent**.
+
+![Deploy New Agent](images/19-wazuh-deploy-new-agent.png)
+
+**Screenshot 19:** Showing the **Deploy new agent** option.
+
+### 9.3 Configure the Windows Agent
+
+In the agent deployment section, select the following options:
+
+* **Operating System:** Windows
+* **Architecture:** x86_64
+* **Server Address:** `192.168.43.155`
+* **Agent Name:** `Windows-11-SOC-Lab`
+
+![Windows Agent OS Selection](images/20-windows-agent-os-selection.png)
+
+**Screenshot 20:** Showing the Windows operating system selection.
+
+![Windows Agent Server and Architecture](images/21-windows-agent-server-architecture.png)
+
+**Screenshot 21:** Showing the configured server address and agent architecture.
+
+![Windows Agent Name](images/22-windows-agent-name.png)
+
+**Screenshot 22:** Showing the configured agent name.
+
+### 9.4 Copy the Installation Command
+
+The Wazuh Dashboard generates an installation command based on the selected configuration.
+
+For this setup, the generated command is:
+
+```powershell
+Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.7-1.msi -OutFile $env:tmp\wazuh-agent; msiexec.exe /i $env:tmp\wazuh-agent /q WAZUH_MANAGER='192.168.43.155' WAZUH_AGENT_NAME='Windows-11-SOC-Lab'
+```
+
+![Wazuh Agent Installation Command](images/23-wazuh-agent-install-command.png)
+
+**Screenshot 23:** Showing the generated Wazuh Agent installation command.
+
+### 9.5 Open PowerShell as Administrator
+
+On the Windows 11 VM:
+
+1. Click **Start**.
+2. Search for **PowerShell**.
+3. Right-click **Windows PowerShell**.
+4. Select **Run as administrator**.
+5. Click **Yes** if the **User Account Control** prompt appears.
+
+### 9.6 Download and Install the Agent
+
+Paste the generated command into **Administrator PowerShell**:
+
+```powershell
+Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.7-1.msi -OutFile $env:tmp\wazuh-agent; msiexec.exe /i $env:tmp\wazuh-agent /q WAZUH_MANAGER='192.168.43.155' WAZUH_AGENT_NAME='Windows-11-SOC-Lab'
+```
+
+Press **Enter**.
+
+The command will:
+
+1. Download the **Wazuh Agent 4.14.7** installer.
+2. Save the installer in the Windows temporary directory.
+3. Install the Wazuh Agent silently.
+4. Configure the Wazuh Manager address as **192.168.43.155**.
+5. Configure the agent name as **Windows-11-SOC-Lab**.
+
+![Wazuh Agent PowerShell Installation](images/24-wazuh-agent-powershell-install.png)
+
+**Screenshot 24:** Showing the Wazuh Agent installation command being executed in Administrator PowerShell.
+
+### 9.7 Verify the Installation
+
+After the installation is complete, verify that the Wazuh Agent service exists by running:
+
+```powershell
+Get-Service WazuhSvc
+```
+
+You should see output similar to:
+
+```text
+Status   Name       DisplayName
+------   ----       -----------
+Stopped  WazuhSvc   Wazuh Agent
+```
+
+The **Stopped** status at this stage is expected because the agent has been installed but has not yet been started.
+
+![Wazuh Agent Service](images/25-wazuh-agent-service.png)
+
+**Screenshot 25:** Showing the installed **Wazuh Agent (`WazuhSvc`)** service.
