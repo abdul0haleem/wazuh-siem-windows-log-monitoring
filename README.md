@@ -475,9 +475,9 @@ The Windows 11 VM is running on **VMware Workstation using NAT**, while the Wazu
 3. Log in to Windows 11.
 4. Make sure the VM has an active network connection.
 
-**Screenshot 15:** Showing the Windows 11 VM running in VMware Workstation.
-
 ![Windows 11 VM Running](images/15-windows-11-vm-running.png)
+
+**Screenshot 15:** Showing the Windows 11 VM running in VMware Workstation.
 
 ### 8.2 Find the Windows 11 IP Address
 
@@ -496,9 +496,9 @@ The IPv4 address may look similar to:
 IPv4 Address. . . . . . : 192.168.xxx.xxx
 ```
 
-**Screenshot 16:** Showing the Windows 11 IPv4 address.
-
 ![Windows 11 IP Address](images/16-windows-11-ip.png)
+
+**Screenshot 16:** Showing the Windows 11 IPv4 address.
 
 ### 8.3 Test Connectivity to the Wazuh Server
 
@@ -517,9 +517,9 @@ Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
 Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
 ```
 
-**Screenshot 17:** Showing successful ping responses from the Wazuh Server.
-
 ![Windows 11 Ping to Wazuh Server](images/17-windows-ping-wazuh.png)
+
+**Screenshot 17:** Showing successful ping responses from the Wazuh Server.
 
 Successful ping responses confirm that **Windows 11 can communicate with the Wazuh Server** over the network.
 
@@ -653,11 +653,11 @@ The **Stopped** status at this stage is expected because the agent has been inst
 
 **Screenshot 25:** Showing the installed **Wazuh Agent (`WazuhSvc`)** service.
 
-## Step 11: Start the Wazuh Agent
+## Step 10: Start the Wazuh Agent
 
 After installing the Wazuh Agent, the next step is to start the **Wazuh Agent service** on Windows 11.
 
-### 11.1 Start the Wazuh Agent
+### 10.1 Start the Wazuh Agent
 
 Open **PowerShell as Administrator** and run:
 
@@ -671,7 +671,7 @@ This command starts the **Wazuh Agent service** on the Windows 11 VM.
 
 **Screenshot 26:** Showing the Wazuh Agent service being started.
 
-### 11.2 Verify the Agent Status
+### 10.2 Verify the Agent Status
 
 Run the following command:
 
@@ -695,11 +695,11 @@ Running  WazuhSvc   Wazuh Agent
 
 The status is **Running**, the Wazuh Agent has been successfully started on the Windows 11 VM and is ready to communicate with the **Wazuh Server**.
 
-## Step 13: Verify Windows Security Events
+## Step 11: Verify Windows Security Events
 
 After starting the Wazuh Agent, the next step is to verify that **Windows 11 security events are being collected and displayed in the Wazuh Dashboard**.
 
-### 13.1 Open the Windows Agent
+### 11.1 Open the Windows Agent
 
 In the Wazuh Dashboard:
 
@@ -715,7 +715,7 @@ Look for available sections such as **Overview**, **Security events**, **Invento
 
 **Screenshot 28:** Showing the **Windows-11-SOC-Lab** agent details page.
 
-### 13.2 Open the Events View
+### 11.2 Open the Events View
 
 From the Wazuh Dashboard, navigate to:
 
@@ -727,7 +727,7 @@ Depending on the Wazuh version, this section may have a slightly different name,
 
 **Screenshot 29:** Showing the **Threat Hunting → Events** view.
 
-### 13.3 Filter Events for the Windows Agent
+### 11.3 Filter Events for the Windows Agent
 
 Use the search or filter field and enter:
 
