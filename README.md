@@ -291,3 +291,123 @@ Successful ping responses confirm that **Kali Linux can communicate with the Waz
 ![Successful Ping to Wazuh Server](images/8-kali-ping-wazuh.png)
 
 **Screenshot 8:** Showing successful ping responses from the Wazuh Server.
+
+## Step 6: Access the Wazuh Dashboard from Kali Linux
+
+After confirming network connectivity between Kali Linux and the Wazuh Server, the next step is to access the **Wazuh Dashboard** through a web browser.
+
+### 6.1 Open the Browser
+
+1. Open **Firefox** in Kali Linux.
+2. Enter the following address in the address bar:
+
+```text
+https://192.168.43.155
+```
+
+3. Press **Enter**.
+
+### 6.2 Accept the Security Warning
+
+Because the Wazuh Dashboard uses HTTPS with a self-signed certificate, Firefox may display a warning such as:
+
+**"Warning: Potential Security Risk Ahead"**
+
+If the warning appears:
+
+1. Click **Advanced**.
+2. Click **Accept the Risk and Continue**.
+
+### 6.3 Log in to Wazuh
+
+The **Wazuh login page** should now appear.
+
+![Wazuh Login Page](images/9-wazuh-login-page.png)
+
+**Screenshot 9:** Showing the Wazuh login page.
+
+Enter the Wazuh login credentials provided with the OVA installation.
+
+> **Security Note:** Do not publish the actual password in a public GitHub repository. Mask or blur the password if it is visible in the screenshot.
+
+![Wazuh Login Credentials](images/10-wazuh-login-credentials.png)
+
+**Screenshot 10:** Showing the Wazuh login credentials.
+
+After successful authentication, the **Wazuh Dashboard** will be displayed.
+
+## Step 7: Verify Wazuh Services
+
+After accessing the Wazuh Dashboard from Kali Linux, the next step is to verify that the main Wazuh services are running correctly before connecting the Windows 11 endpoint.
+
+**Screenshot 11:** Showing the **Wazuh Dashboard**.
+
+![Wazuh Dashboard](images/11-wazuh-dashboard.png)
+
+### 7.1 Open the Wazuh Server Terminal
+
+1. Open the **Wazuh Server VM** in VirtualBox.
+2. Log in to the Wazuh Server.
+
+### 7.2 Check the Wazuh Manager
+
+Run the following command:
+
+```bash
+sudo systemctl status wazuh-manager
+```
+
+The service should show:
+
+```text
+Active: active (running)
+```
+
+Press **Q** to exit the status screen.
+
+![Wazuh Manager Service](images/12-wazuh-manager-status.png)
+
+**Screenshot 12:** Showing the **Wazuh Manager** service with an active running status.
+
+### 7.3 Check the Wazuh Indexer
+
+Run:
+
+```bash
+sudo systemctl status wazuh-indexer
+```
+
+The service should also show:
+
+```text
+Active: active (running)
+```
+
+Press **Q** to exit the status screen.
+
+![Wazuh Indexer Service](images/13-wazuh-indexer-status.png)
+
+**Screenshot 13:** Showing the **Wazuh Indexer** service with an active running status.
+
+### 7.4 Check the Wazuh Dashboard
+
+Finally, check the **Wazuh Dashboard** service by running:
+
+```bash
+sudo systemctl status wazuh-dashboard
+```
+
+The service should show:
+
+```text
+Active: active (running)
+```
+
+Press **Q** to exit the status screen.
+
+![Wazuh Dashboard Service](images/14-wazuh-dashboard-status.png)
+
+**Screenshot 14:** Showing the **Wazuh Dashboard** service with an active running status.
+
+At this stage, the **Wazuh Manager, Wazuh Indexer, and Wazuh Dashboard** services should all be running correctly.
+
