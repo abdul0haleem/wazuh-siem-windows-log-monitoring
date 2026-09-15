@@ -237,9 +237,9 @@ Before continuing with the Wazuh setup, verify that **Kali Linux can communicate
 3. Click **Start**.
 4. Log in to Kali Linux.
 
-**Screenshot 6:** Showing the Kali Linux VM running in VirtualBox.
-
 ![Kali Linux VM Running](images/6-kali-linux-running.png)
+
+**Screenshot 6:** Showing the Kali Linux VM running in VirtualBox.
 
 ### 5.2 Check the Kali Linux IP Address
 
@@ -251,43 +251,43 @@ ifconfig
 
 Find the **`inet`** address of the active network interface.
 
-The Wazuh Server IP address is:
-
-```text
-WAZUH_SERVER_IP
-```
-
-Kali Linux should have an IP address that allows communication with the Wazuh Server through the configured lab network.
-
 In this setup, the Kali Linux IP address is:
 
 ```text
-KALI_IP_ADDRESS
+192.168.43.18
 ```
 
-**Screenshot 7:** Showing the Kali Linux IP address.
+The Wazuh Server IP address is:
+
+```text
+192.168.43.155
+```
+
+Both systems are connected to the **192.168.43.0/24** network, allowing them to communicate with each other.
 
 ![Kali Linux IP Address](images/7-kali-linux-ip.png)
+
+**Screenshot 7:** Showing the Kali Linux IP address.
 
 ### 5.3 Ping the Wazuh Server
 
 To verify network connectivity, run the following command in the Kali Linux terminal:
 
 ```bash
-ping -c 4 WAZUH_SERVER_IP
+ping -c 4 192.168.43.155
 ```
 
 If the connection is working correctly, Kali Linux should receive replies from the Wazuh Server, similar to:
 
 ```text
-64 bytes from WAZUH_SERVER_IP: icmp_seq=1 ttl=64 time=...
-64 bytes from WAZUH_SERVER_IP: icmp_seq=2 ttl=64 time=...
-64 bytes from WAZUH_SERVER_IP: icmp_seq=3 ttl=64 time=...
-64 bytes from WAZUH_SERVER_IP: icmp_seq=4 ttl=64 time=...
+64 bytes from 192.168.43.155: icmp_seq=1 ttl=64 time=...
+64 bytes from 192.168.43.155: icmp_seq=2 ttl=64 time=...
+64 bytes from 192.168.43.155: icmp_seq=3 ttl=64 time=...
+64 bytes from 192.168.43.155: icmp_seq=4 ttl=64 time=...
 ```
 
 Successful ping responses confirm that **Kali Linux can communicate with the Wazuh Server** over the network.
 
-**Screenshot 8:** Showing successful ping responses from the Wazuh Server.
-
 ![Successful Ping to Wazuh Server](images/8-kali-ping-wazuh.png)
+
+**Screenshot 8:** Showing successful ping responses from the Wazuh Server.
