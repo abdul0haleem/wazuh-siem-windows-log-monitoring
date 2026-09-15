@@ -225,3 +225,69 @@ The IP address will be different depending on the local network.
 ![Wazuh Server IP Address](images/5-wazuh-server-ip.png)
 
 **Screenshot 5:** Showing the Wazuh Server terminal with the IP address displayed using the `ip addr` command.
+
+## Step 5: Verify Connectivity from Kali Linux to the Wazuh Server
+
+Before continuing with the Wazuh setup, verify that **Kali Linux can communicate with the Wazuh Server** over the network.
+
+### 5.1 Start Kali Linux
+
+1. Open **Oracle VM VirtualBox**.
+2. Select the **Kali Linux** virtual machine.
+3. Click **Start**.
+4. Log in to Kali Linux.
+
+**Screenshot 6:** Showing the Kali Linux VM running in VirtualBox.
+
+![Kali Linux VM Running](images/6-kali-linux-running.png)
+
+### 5.2 Check the Kali Linux IP Address
+
+Open a terminal in Kali Linux and run:
+
+```bash
+ifconfig
+```
+
+Find the **`inet`** address of the active network interface.
+
+The Wazuh Server IP address is:
+
+```text
+WAZUH_SERVER_IP
+```
+
+Kali Linux should have an IP address that allows communication with the Wazuh Server through the configured lab network.
+
+In this setup, the Kali Linux IP address is:
+
+```text
+KALI_IP_ADDRESS
+```
+
+**Screenshot 7:** Showing the Kali Linux IP address.
+
+![Kali Linux IP Address](images/7-kali-linux-ip.png)
+
+### 5.3 Ping the Wazuh Server
+
+To verify network connectivity, run the following command in the Kali Linux terminal:
+
+```bash
+ping -c 4 WAZUH_SERVER_IP
+```
+
+If the connection is working correctly, Kali Linux should receive replies from the Wazuh Server, similar to:
+
+```text
+64 bytes from WAZUH_SERVER_IP: icmp_seq=1 ttl=64 time=...
+64 bytes from WAZUH_SERVER_IP: icmp_seq=2 ttl=64 time=...
+64 bytes from WAZUH_SERVER_IP: icmp_seq=3 ttl=64 time=...
+64 bytes from WAZUH_SERVER_IP: icmp_seq=4 ttl=64 time=...
+```
+
+Successful ping responses confirm that **Kali Linux can communicate with the Wazuh Server** over the network.
+
+**Screenshot 8:** Showing successful ping responses from the Wazuh Server.
+
+![Successful Ping to Wazuh Server](images/8-kali-ping-wazuh.png)
