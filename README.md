@@ -5,11 +5,12 @@ A hands-on Wazuh SIEM lab for Windows 11 endpoint monitoring, log collection, se
 ## 📑 Table of Contents
 
 - [Project Overview](#-project-overview)
-- [Lab Architecture](#️-lab-architecture)
+- [Lab Architecture](#-lab-architecture)
   - [Lab Network Architecture](#-lab-network-architecture)
 - [Objectives](#-objectives)
-- [Lab Environment](#️-lab-environment)
-- [Tools Used](#️-tools-used)
+- [Lab Environment](#-lab-environment)
+- [Tools Used](#-tools-used)
+- [Project Implementation](#-project-implementation)
 - [Step 1: Download the Wazuh OVA](#step-1-download-the-wazuh-ova)
 - [Step 2: Import the Wazuh OVA into VirtualBox](#step-2-import-the-wazuh-ova-into-virtualbox)
   - [2.1 Open VirtualBox](#21-open-virtualbox)
@@ -21,6 +22,7 @@ A hands-on Wazuh SIEM lab for Windows 11 endpoint monitoring, log collection, se
   - [3.2 Configure Kali Linux](#32-configure-kali-linux)
   - [3.3 Configure Windows 11 Network](#33-configure-windows-11-network)
   - [3.4 Network Architecture](#34-network-architecture)
+  - [3.5 Required Wazuh Ports](#35-required-wazuh-ports)
 - [Step 4: Start the Wazuh Server and Find Its IP Address](#step-4-start-the-wazuh-server-and-find-its-ip-address)
   - [4.1 Start the Wazuh Server](#41-start-the-wazuh-server)
   - [4.2 Log in to the Wazuh Server](#42-log-in-to-the-wazuh-server)
@@ -107,7 +109,7 @@ This project provides practical experience with **SIEM deployment, endpoint moni
                          LAB NETWORK
 ```
 
-The **Windows 11 Wazuh Agent** collects security-related events
+The **Windows 11 Wazuh Agent** collects security-related events (such as logon activity, process executions, and service changes) and forwards them securely to the Wazuh Manager over port 1514 for centralized ingestion and threat analysis.
 
 ## 🎯 Objectives
 
@@ -145,7 +147,9 @@ The **Windows 11 Wazuh Agent** collects security-related events
 * **PowerShell** — Command-line tool used to install, configure, and manage the Wazuh Agent
 * **Windows Event Logs** — Security, System, and Application logs monitored by Wazuh
 
-⚙️ Project Implementation
+## ⚙️ Project Implementation
+
+The following steps outline the end-to-end setup and verification process for deploying the Wazuh SIEM lab environment and connecting the Windows 11 endpoint.
 
 ## Step 1: Download the Wazuh OVA
 
@@ -256,6 +260,8 @@ The **Wazuh Server** and **Kali Linux** are configured with a **Bridged Adapter*
 Keep the **Windows 11 VMware VM** configured as **NAT**.
 
 The Windows 11 network connection will be tested later to verify that the Windows VM can communicate with the Wazuh Server.
+
+> **Note on VMware NAT & VirtualBox Bridged Routing:** VMware NAT translates the Windows 11 VM's outbound traffic through the host's physical network adapter. Since the Wazuh Server is bridged to this same physical network, the Windows VM can seamlessly communicate with the Wazuh Server (`192.168.43.155`). Furthermore, Wazuh telemetry is entirely **agent-initiated** (the agent connects outbound on ports 1515 and 1514), meaning no complex port forwarding or inbound routing into the NAT network is required.
 
 ### 3.4 Network Architecture
 
@@ -557,7 +563,7 @@ The Windows 11 VM is running on **VMware Workstation using NAT**, while the Wazu
 1. Open **Command Prompt** in Windows 11.
 2. Run:
 
-```cmd id="6m5w7b"
+```cmd
 ipconfig
 ```
 
@@ -565,7 +571,7 @@ ipconfig
 
 The IPv4 address may look similar to:
 
-```text id="8w8qtd"
+```text
 IPv4 Address. . . . . . : 192.168.xxx.xxx
 ```
 
@@ -577,13 +583,13 @@ IPv4 Address. . . . . . : 192.168.xxx.xxx
 
 In the same Command Prompt, run:
 
-```cmd id="6x8l5a"
+```cmd
 ping 192.168.43.155
 ```
 
 If Windows 11 can reach the Wazuh Server, you should receive replies similar to:
 
-```text id="1o5vax"
+```text
 Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
 Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
 Reply from 192.168.43.155: bytes=32 time<1ms TTL=...
@@ -598,7 +604,7 @@ Successful ping responses confirm that **Windows 11 can communicate with the Waz
 
 ### Network Connectivity
 
-```text id="f2q0az"
+```text
 Windows 11 VM
      │
      │  Ping
@@ -667,6 +673,8 @@ For this setup, the generated command is:
 ```powershell
 Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.7-1.msi -OutFile $env:tmp\wazuh-agent; msiexec.exe /i $env:tmp\wazuh-agent /q WAZUH_MANAGER='192.168.43.155' WAZUH_AGENT_NAME='Windows-11-SOC-Lab'
 ```
+
+> **Automated Script Alternative:** You can also run the reusable deployment script provided in this repository [`scripts/Install-WazuhAgent.ps1`](scripts/Install-WazuhAgent.ps1) in Administrator PowerShell to download, install, configure, and start the agent automatically with full error handling.
 
 ![Wazuh Agent Installation Command](images/23-wazuh-agent-install-command.png)
 
@@ -766,7 +774,7 @@ Running  WazuhSvc   Wazuh Agent
 
 ### Result
 
-The status is **Running**, the Wazuh Agent has been successfully started on the Windows 11 VM and is ready to communicate with the **Wazuh Server**.
+With the service status confirmed as **Running**, the Wazuh Agent has been successfully started on the Windows 11 VM and is actively communicating with the **Wazuh Server**.
 
 ## Step 11: Verify Windows Security Events
 
@@ -818,7 +826,7 @@ The dashboard should display security events generated by the **Windows 11** mac
 
 ### Result
 
-The events are displayed, it confirms that the **Wazuh Agent is successfully communicating with the Wazuh Server and sending Windows security events** to the Wazuh Dashboard.
+The appearance of these live events confirms that the **Wazuh Agent is successfully communicating with the Wazuh Server and forwarding Windows security telemetry** directly to the Wazuh Dashboard for analysis.
 
 ## 🧠 Skills Earned
 
