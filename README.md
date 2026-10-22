@@ -4,13 +4,13 @@ A hands-on Wazuh SIEM lab for Windows 11 endpoint monitoring, log collection, se
 
 ## 📑 Table of Contents
 
-- [Project Overview](#-project-overview)
-- [Lab Architecture](#️-lab-architecture)
-  - [Lab Network Architecture](#-lab-network-architecture)
-- [Objectives](#-objectives)
-- [Lab Environment](#️-lab-environment)
-- [Tools Used](#️-tools-used)
-- [Project Implementation](#️-project-implementation)
+- [📖 Project Overview](#-project-overview)
+- [🏗️ Lab Architecture](#️-lab-architecture)
+  - [🌐 Lab Network Architecture](#-lab-network-architecture)
+- [🎯 Objectives](#-objectives)
+- [🖥️ Lab Environment](#️-lab-environment)
+- [🛠️ Tools Used](#️-tools-used)
+- [⚙️ Project Implementation](#️-project-implementation)
 - [Step 1: Download the Wazuh OVA](#step-1-download-the-wazuh-ova)
 - [Step 2: Import the Wazuh OVA into VirtualBox](#step-2-import-the-wazuh-ova-into-virtualbox)
   - [2.1 Open VirtualBox](#21-open-virtualbox)
@@ -61,9 +61,9 @@ A hands-on Wazuh SIEM lab for Windows 11 endpoint monitoring, log collection, se
   - [11.1 Open the Windows Agent](#111-open-the-windows-agent)
   - [11.2 Open the Events View](#112-open-the-events-view)
   - [11.3 Filter Events for the Windows Agent](#113-filter-events-for-the-windows-agent)
-- [Skills Earned](#-skills-earned)
-- [Key Learnings](#-key-learnings)
-- [Conclusion](#-conclusion)
+- [🧠 Skills Earned](#-skills-earned)
+- [🔑 Key Learnings](#-key-learnings)
+- [🎯 Conclusion](#-conclusion)
 
 ## 📖 Project Overview
 
